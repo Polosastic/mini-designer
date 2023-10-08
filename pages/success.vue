@@ -4,9 +4,9 @@
         <h1 class="text-center align-middle min-h-fit">The order was successful <br>
             Thanks for using Mini-designer
         </h1>
-        <router-link to="/" v-slot="{href, navigate}" class="flex justify-center">
+        <NuxtLink to="/" v-slot="{href, navigate}" class="flex justify-center">
             <button :href="href" @click="navigate" class='back-button bg-lime-500 font-semibold text-white text-center rounded-md p-2 m-4'>Design another product</button>
-        </router-link>
+        </NuxtLink>
     </div>
     <Footer />
 </template>

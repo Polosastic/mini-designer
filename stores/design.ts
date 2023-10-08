@@ -1,23 +1,46 @@
 import { defineStore } from 'pinia';
-
-interface DesignState {
-  selectedColors: string[];
-  selectedMotives: string[];
+import getColors from '~/utils/getColors'; 
+import getMotives from '~/utils/getMotives'; 
+interface Colour {
+  name: string;
+  color: string;
+  price: number;
 }
-
+interface Motive{
+  name: string;
+  img: string;
+  price: number;
+}
+interface DesignState {
+  colors: Colour[]; 
+  motives: Motive[];
+}
 export const useDesignStore = defineStore({
-  id: 'design',
+  id:'design',
   state: (): DesignState => ({
-    selectedColors: [],
-    selectedMotives: [],
+    colors: [],
+    motives: [],
   }),
-
   actions: {
-    updateSelectedColors(colors: string[]) {
-      this.selectedColors = colors;
+    setColors(colors:Colour[]) {
+      this.colors = colors;
     },
-    updateSelectedMotives(motives: string[]) {
-      this.selectedMotives = motives;
+    setMotives(motives:Motive[]) {
+      this.motives = motives;
+    },
+  },
+  getters: {
+    getColorsArray(state): Colour[] {
+      if(state.colors === null){
+       state.colors = getColors().value;
+      }
+      return state.colors;
+    },
+    getMotivesArray(state): Motive[] {
+      if(state.motives === null){
+       state.motives = getMotives().value;
+      }
+      return state.motives;
     },
   },
 });

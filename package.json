@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
-    "pinia": "^2.1.6"
+    "@vitejs/plugin-vue": "^4.4.0",
+    "pinia": "^2.1.6",
+    "vue-router": "^4.2.5"
   }
 }
