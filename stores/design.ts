@@ -12,34 +12,44 @@ interface Motive{
   price: number;
 }
 interface DesignState {
-  colors: Colour[]; 
-  motives: Motive[];
+  colors: Colour[]|null; 
+  motives: Motive[]|null;
 }
 export const useDesignStore = defineStore({
   id:'design',
   state: (): DesignState => ({
-    colors: [],
-    motives: [],
+    colors: null,
+    motives: null,
   }),
   actions: {
-    setColors(colors:Colour[]) {
+    async fetchAndSetColors() {
+      try {
+        const colors = await getColors();
+        this.setColors(colors);
+      } catch (error) {
+        console.error('Error fetching colors:', error);
+      }
+    },
+    setColors(colors:Colour[]|null) {
       this.colors = colors;
     },
-    setMotives(motives:Motive[]) {
+    async fetchAndSetMotives() {
+      try {
+        const motives = await getMotives();
+        this.setMotives(motives);
+      } catch (error) {
+        console.error('Error fetching motives:', error);
+      }
+    },
+    setMotives(motives:Motive[]|null) {
       this.motives = motives;
     },
   },
   getters: {
-    getColorsArray(state): Colour[] {
-      if(state.colors === null){
-       state.colors = getColors().value;
-      }
+    getColorsArray(state): Colour[]|null {
       return state.colors;
     },
-    getMotivesArray(state): Motive[] {
-      if(state.motives === null){
-       state.motives = getMotives().value;
-      }
+    getMotivesArray(state): Motive[]|null {
       return state.motives;
     },
   },

@@ -6,29 +6,14 @@ interface Motive {
   price: number;
 }
 
-export default function getMotives() {
-  const designStore = useDesignStore();
-  const motives = ref<Motive[]>([]);
+export default async function getMotives(): Promise<Motive[]|null> {
+  const response = await useFetch("/api/motives");
+  const fetchedMotives: Motive[] | null = response.data?.value;
 
-  const fetchMotives = async () => {
-    try {
-      const response = await useFetch("/api/motives");
-      const fetchedMotives:Motive[] | null = response.data?.value;
-
-      if (fetchedMotives) {
-        designStore.setMotives(fetchedMotives);
-        motives.value = fetchedMotives;
-      } else {
-        console.error('No motives fetched.');
-      }
-    } catch (error) {
-      console.error('Error fetching motives:', error);
-    }
-  };
-
-  onMounted(() => {
-    fetchMotives();
-  });
-
-  return motives;
+  if (fetchedMotives) {
+    return fetchedMotives;
+  } else {
+    console.error('No motives fetched.');
+    return [];
+  }
 }

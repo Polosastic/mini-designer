@@ -89,15 +89,13 @@
   
 <script setup lang="ts">
 import { useDesignStore } from '~/stores/design';
-import  getColors  from '~/utils/getColors';
-import  getMotives  from '~/utils/getMotives';
-
 const designStore = useDesignStore();
-// const colors = designStore.getColorsArray;
-// const motives = designStore.getMotivesArray;
-const colors = getColors();
-const motives = getMotives();
-
+onMounted(() => {
+   designStore.fetchAndSetColors();
+   designStore.fetchAndSetMotives();
+});
+const colors = designStore.getColorsArray;
+const motives = designStore.getMotivesArray;
 </script>
 
 <style lang="css">
