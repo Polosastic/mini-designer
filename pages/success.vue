@@ -10,13 +10,8 @@
     </div>
     <Footer />
 </template>
-
-<script>
-export default {
-    setup () {
-        
-
-        return {}
-    }
-}
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { useDesignStore } from '~/stores/design';
+const designStore = useDesignStore();
 </script>
